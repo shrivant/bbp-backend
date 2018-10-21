@@ -49,6 +49,34 @@ def getProductById():
 		data = cur.fetchall().pop()
 		return json.dumps({'message': 'Product found'})
 
+@app.route("/categoryName")
+def getCategoryByName():
+	try:
+		conn = getDbConnection()
+		cur = conn.cursor()
+		sql = "SELECT * FROM bbp_db_username.Categories WHERE name = %s"	
+		vals = (request.args.get('name'),)
+		cur.execute(sql, vals)
+	except Exception as e: 
+		print("Error is: "+str(e))
+	if len(cur) > 0:
+		data = cur.fetchall().pop()
+		return json.dumps({'message': 'Product found'})
+
+@app.route("/categoryId")
+def getCategoryById():
+	try:
+		conn = getDbConnection()
+		cur = conn.cursor()
+		sql = "SELECT * FROM bbp_db_username.Products WHERE id = %s"	
+		vals = (request.args.get('id'),)
+		cur.execute(sql, vals)
+	except Exception as e: 
+		print("Error is: "+str(e))
+	if len(cur) > 0:
+		data = cur.fetchall().pop()
+		return json.dumps({'message': 'Product found'})
+
 def getDbConnection():
 	return mysql.connector.connect(host="bbp-db.cguaowfnmopm.us-east-1.rds.amazonaws.com", port=3306, user="bbp_username", password="bbp_password") 
 
