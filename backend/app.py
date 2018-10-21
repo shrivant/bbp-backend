@@ -21,7 +21,25 @@ def register():
 		print("Error is: "+str(e))
 		return json.dumps({'message': 'User not created'})
 
-# get product by name
+@app.route("/product")
+def getProductByName():
+
+
+def getProductById():
+	try:
+		conn = getDbConnection()
+		cur = conn.cursor()
+		sql = "SELECT * FROM bbp_db_username.Products WHERE name = %s"	
+		vals = (data["username"], data["password"])
+		cur.execute(sql, vals)
+		conn.commit()
+		conn.close()
+		return json.dumps({'message': 'User created'})
+	except Exception as e: 
+		print("Error is: "+str(e))
+		return json.dumps({'message': 'User not created'})
+
+
 # get product by id 
 # get all categories
 # get all product by category
